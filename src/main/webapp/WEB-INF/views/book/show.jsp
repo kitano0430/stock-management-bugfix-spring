@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <body>
 <div class="container">
+
+
 	<c:out value="${member.name}"/>さん　こんにちは！<br>
 	<a href="${pageContext.request.contextPath}/logout/sessionInvalidate">ログアウト</a>
 	<h3>書籍在庫数変更画面</h3>
@@ -15,7 +17,7 @@
 			      書籍名
 			    </th>
 			    <td>
-			      ${book.name}
+			<c:out value=" ${book.name}"/> 
 			    </td>
 			  </tr>
 			  <tr>
@@ -23,7 +25,7 @@
 			      著者
 			    </th>
 			    <td>
-			      ${book.author}
+			    <c:out value="${book.author}"/>  
 			    </td>
 			  </tr>
 			  <tr>
@@ -31,7 +33,7 @@
 			      出版社
 			    </th>
 			    <td>
-			      ${book.publisher}
+			    <c:out value="${book.publisher}"/>  
 			    </td>
 			  </tr>
 			  <tr>

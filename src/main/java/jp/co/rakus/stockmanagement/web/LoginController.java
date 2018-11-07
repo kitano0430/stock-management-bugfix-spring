@@ -55,15 +55,20 @@ public class LoginController {
 		if (result.hasErrors()){
 			return index();
 		}
+		
+		
 		String mailAddress = form.getMailAddress();
 		String password = form.getPassword();
 		Member member = memberService.findOneByMailAddressAndPassword(mailAddress, password);
+		
 		if (member == null) {
 			ObjectError error = new ObjectError("loginerror", "メールアドレスまたはパスワードが違います。");
             result.addError(error);
 			return index();
 		}
+		
 		model.addAttribute("member", member);
+		
 		return "redirect:/book/list";
 	}
 }
