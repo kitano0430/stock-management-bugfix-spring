@@ -86,8 +86,11 @@
 						<input class="btn" type="submit" value="更新">
 					</form>
 			    </td>
+			    
 			  </tr>
+			 
 			</table>
+			 <a href="book/list">一覧に戻る</a>
 		</div>
 	</div>
 </div>
