@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.stockmanagement.domain.Member;
 import jp.co.rakus.stockmanagement.service.MemberService;
@@ -22,10 +24,6 @@ import jp.co.rakus.stockmanagement.service.MemberService;
 @RequestMapping("/member")
 @Transactional
 public class MemberController {
-	
-	
-	
-	
 	
 
 	@Autowired
@@ -57,8 +55,17 @@ public class MemberController {
 	 * @return ログイン画面
 	 */
 	@RequestMapping(value = "/create")
-	public String create(@Validated MemberForm form, 
+	public String create(
+			@Validated MemberForm form, 
+			BindingResult result,
+			RedirectAttributes redirectAttributes,
 			Model model) {
+		
+		if(result.hasErrors()) {
+			return "member/form";
+		}
+		
+		
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
 		memberService.save(member);
