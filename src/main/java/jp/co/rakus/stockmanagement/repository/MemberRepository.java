@@ -78,8 +78,13 @@ public class MemberRepository {
 
 	}
 
-	// 新たに作成
+	
 
+	/**
+	 * メールアドレスの重複を確認するSQl
+	 * @param mailAddress
+	 * @return
+	 */
 	public Member findByMailaddress(String mailAddress) {
 
 		String sql = "SELECT id,name,mail_address,password FROM members WHERE mail_address= :mailAddress";
@@ -94,6 +99,9 @@ public class MemberRepository {
 			return null;
 		}
 
+		
+		
+		
 	}
 
 }

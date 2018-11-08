@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import jp.co.rakus.stockmanagement.domain.Member;
 import jp.co.rakus.stockmanagement.service.MemberService;
-
 
 /**
  * メンバー関連処理を行うコントローラー.
@@ -67,26 +67,40 @@ public class MemberController {
 			return "member/form";
 		}
 
-		//新たに作成
-		
+		// 新たに作成
+
 		String mailAddress = form.getMailAddress();
 
-		
-		
-		
-		Member existMember  = memberService.findByMailaddress(mailAddress);
-		
+		Member existMember = memberService.findByMailaddress(mailAddress);
+
 		if (existMember != null) {
-			
+
 			result.rejectValue("mailAddress", null, "このメールアドレスは既に存在しています");
 			return "/member/form";
-			
-		} else {
-			Member member = new Member();
-			BeanUtils.copyProperties(form, member);	
-			memberService.save(member);
-			return "redirect:/";
+
 		}
+		//ここから編集
+		String password = form.getPassword();
+		String checkPassword = form.getCheckPassword();
+		System.out.println(password +"　　"+ checkPassword );
+		
+		if(password.equals(checkPassword)) {
+			Member member = new Member();
+			BeanUtils.copyProperties(form, member);
+			memberService.save(member);
+			
+			return "redirect:/";
+			
+		}else {
+			result.rejectValue("password", null, "パスワードが一致しません");
+		
+			return "/member/form";
+		}
+		
+	
+			
+		
+
 	}
 
 }

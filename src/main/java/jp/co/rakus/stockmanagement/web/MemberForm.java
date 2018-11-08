@@ -29,6 +29,9 @@ public class MemberForm {
 	private String checkPassword;
 	
 	
+	public void setCheckPassword(String checkPassword) {
+		this.checkPassword = checkPassword;
+	}
 	public String getCheckPassword() {
 		return checkPassword;
 	}
