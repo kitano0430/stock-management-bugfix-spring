@@ -1,5 +1,7 @@
 package jp.co.rakus.stockmanagement.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +42,11 @@ public class LoginController {
 	@RequestMapping
 	public String index() {
 		return "loginForm";
+		
 	}
 	
+	@Autowired
+	HttpSession session;
 	/**
 	 * ログイン処理を行います.
 	 * @param form　フォーム
@@ -67,7 +72,7 @@ public class LoginController {
 			return index();
 		}
 		
-		model.addAttribute("member", member);
+		session.setAttribute("member", member);
 		
 		return "redirect:/book/list";
 	}

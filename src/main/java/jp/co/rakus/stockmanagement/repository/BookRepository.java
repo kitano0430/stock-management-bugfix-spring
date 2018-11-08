@@ -47,8 +47,7 @@ public class BookRepository {
 	}
 	
 	public Book findOne(Integer id) {
-		SqlParameterSource param = new MapSqlParameterSource()
-				.addValue("id",id);
+		SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
 		Book book = jdbcTemplate.queryForObject(
 				"SELECT id,name,author,publisher,price,isbncode,saledate,explanation,image,stock FROM books WHERE id=:id", 
 				param, 
