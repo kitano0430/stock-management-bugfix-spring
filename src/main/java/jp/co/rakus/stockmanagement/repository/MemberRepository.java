@@ -40,13 +40,14 @@ public class MemberRepository {
 	 */
 	public Member findByMailAddressAndPassword(String mailAddress, String password) {
 		
-		String sql = "SELECT id,name,mail_address,password FROM members WHERE mail_address　= :mailAddress  and password= :password ";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",password);
 		
+		String sql = "SELECT id,name,mail_address,password FROM members WHERE mail_address= :mailAddress  and password= :password ";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",password);
 		Member member = null;
 		
 		try{	
-				
+			
+			
 			member = jdbcTemplate.queryForObject(sql,param, MEMBER_ROW_MAPPER);
 			
 			return member;
