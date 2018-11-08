@@ -17,6 +17,7 @@
 			    	<form:input path="name"  placeholder="Name"/>
 			    </td>
 			  </tr>
+			  
 			  <tr>
 			  <form:errors path="mailAddress" cssStyle="color:red" element="div"/>
 			    <th>メールアドレス </th>
@@ -24,6 +25,7 @@
 			    	<form:input path="mailAddress" placeholder="Email"/>
 			    </td>
 			  </tr>
+			  
 			  <tr>
 			  <form:errors path="password" cssStyle="color:red" element="div"/>
 			    <th> パスワード</th>
@@ -31,10 +33,17 @@
 			    	<form:password path="password" placeholder="Password"/>
 			    </td>
 			  </tr>
+			  
 			  <tr>
-			  	<td></td>
+		  		<th> パスワード確認</th>   
 			    <td>
-					<input class="btn" type="submit" value="登録">
+			   		<form:password path="checkPassword" placeholder="password"/> 	
+			     </td>
+			  </tr>
+			  	
+			  <tr>	
+			    <td>
+					<br><input class="btn" type="submit" value="登録">
 			    </td>
 			  </tr>
 			</table>

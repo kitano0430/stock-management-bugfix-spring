@@ -33,6 +33,13 @@ public class MemberService {
 		return memberRepository.save(member);
 	}
 	
+	//新たに作成
+	public Member findByMailaddress(String mailAddress) {
+		return memberRepository.findByMailaddress(mailAddress);
+		
+	}
+	
+	
 //	public Member update(Member member){
 //		return memberRepository.save(member);
 //	}

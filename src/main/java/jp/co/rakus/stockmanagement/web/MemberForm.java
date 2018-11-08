@@ -25,7 +25,13 @@ public class MemberForm {
 	@Size(min = 4, max = 8, message = "パスワードは4文字以上8文字以内で記載してください")
 	private String password;
 	
+	/**確認用パスワード*/
+	private String checkPassword;
 	
+	
+	public String getCheckPassword() {
+		return checkPassword;
+	}
 	public String getName() {
 		return name;
 	}

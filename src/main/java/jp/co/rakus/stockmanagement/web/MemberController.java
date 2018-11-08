@@ -1,6 +1,5 @@
 package jp.co.rakus.stockmanagement.web;
 
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.co.rakus.stockmanagement.domain.Member;
 import jp.co.rakus.stockmanagement.service.MemberService;
 
+
 /**
  * メンバー関連処理を行うコントローラー.
+ * 
  * @author igamasayuki
  *
  */
@@ -24,13 +25,13 @@ import jp.co.rakus.stockmanagement.service.MemberService;
 @RequestMapping("/member")
 @Transactional
 public class MemberController {
-	
 
 	@Autowired
 	private MemberService memberService;
 
 	/**
 	 * フォームを初期化します.
+	 * 
 	 * @return フォーム
 	 */
 	@ModelAttribute
@@ -40,37 +41,52 @@ public class MemberController {
 
 	/**
 	 * メンバー情報登録画面を表示します.
+	 * 
 	 * @return メンバー情報登録画面
 	 */
 	@RequestMapping(value = "form")
 	public String form() {
 		return "/member/form";
 	}
-	
+
 	/**
 	 * メンバー情報を登録します.
-	 * @param form フォーム
+	 * 
+	 * @param form   フォーム
 	 * @param result リザルト
-	 * @param model モデル
+	 * @param model  モデル
 	 * @return ログイン画面
 	 */
 	@RequestMapping(value = "/create")
-	public String create(
-			@Validated MemberForm form, 
-			BindingResult result,
-			RedirectAttributes redirectAttributes,
+
+	public String create(@Validated MemberForm form, BindingResult result, RedirectAttributes redirectAttributes,
 			Model model) {
-		
-		if(result.hasErrors()) {
+
+		if (result.hasErrors()) {
+
 			return "member/form";
 		}
+
+		//新たに作成
+		
+		String mailAddress = form.getMailAddress();
+
 		
 		
-		Member member = new Member();
-		BeanUtils.copyProperties(form, member);
 		
-		memberService.save(member);
-		return "redirect:/" ;
+		Member existMember  = memberService.findByMailaddress(mailAddress);
+		
+		if (existMember != null) {
+			
+			result.rejectValue("mailAddress", null, "このメールアドレスは既に存在しています");
+			return "/member/form";
+			
+		} else {
+			Member member = new Member();
+			BeanUtils.copyProperties(form, member);	
+			memberService.save(member);
+			return "redirect:/";
+		}
 	}
-	
+
 }
